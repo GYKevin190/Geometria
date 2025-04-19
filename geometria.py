@@ -23,31 +23,62 @@ def generate_generalized_koch(p0, p1, iterations, ratios, angles_deg):
 
     return points
 
-def plot_fractal(title, ratios, angles_deg, iterations):
+def estimate_fractal_dimension(n_segments, scaling_ratio):
+
+    if n_segments <= 1 or scaling_ratio <= 0:
+        return 1.0  
+    return np.log(n_segments) / np.log(1 / scaling_ratio)
+
+def compute_curve_length(points):
+    return sum(np.linalg.norm(np.array(points[i+1]) - np.array(points[i])) for i in range(len(points)-1))
+
+def analyze_and_plot(title, ratios, angles_deg, iterations):
     start = np.array([0.0, 0.0])
     end = np.array([1.0, 0.0])
     curve = generate_generalized_koch(start, end, iterations, ratios, angles_deg)
     x_vals, y_vals = zip(*curve)
 
-    plt.figure(figsize=(12, 3))
+    length = compute_curve_length(curve)
+
+    num_points = len(curve)
+
+    theoretical_D = None
+    if len(set(ratios)) == 1:
+        r = ratios[0]
+        n = len(ratios)
+        theoretical_D = estimate_fractal_dimension(n, r)
+
+    plt.figure(figsize=(12, 4))
     plt.plot(x_vals, y_vals, color='darkblue')
-    plt.title(f'{title} (iteráció: {iterations})')
+    plt.title(f'{title} (iteráció: {iterations})', fontsize=14)
     plt.axis('equal')
     plt.axis('off')
+
+    info_text = f"Iterációk: {iterations}\nPontok: {num_points}\nHossz: {length:.5f}"
+    if theoretical_D:
+        info_text += f"\nFraktáldimenzió: {theoretical_D:.5f}"
+
+    plt.gca().text(
+        0.01, 0.99, info_text,
+        transform=plt.gca().transAxes,  
+        fontsize=10,
+        ha='left', va='top',
+        bbox=dict(facecolor='white', alpha=0.7, boxstyle='round')
+    )
+
     plt.show()
 
-# Globális iterációszám
+
 iterations = 6
 
-# Fraktál definíciók
 fraktalok = [
     {
-        "title": "Klasszikus Koch-görbe ❄️",
+        "title": "Klasszikus Koch-görbe ",
         "ratios": [1/3, 1/3, 1/3, 1/3],
         "angles_deg": [0, 60, -60, 0]
     },
     {
-        "title": "Négyzetes Koch-görbe 🟦",
+        "title": "Négyzetes Koch-görbe ",
         "ratios": [1/4]*8,
         "angles_deg": [0, 90, -90, 0, 0, -90, 90, 0]
     },
@@ -57,17 +88,16 @@ fraktalok = [
         "angles_deg": [45, -45]
     },
     {
-        "title": "Recés / cikkcakk fraktál 🔀",
+        "title": "Recés / cikkcakk fraktál ",
         "ratios": [0.5, 0.5],
         "angles_deg": [45, -45]
     },
     {
-        "title": "Hullámvonal fraktál 🌊",
+        "title": "Hullámvonal fraktál ",
         "ratios": [1/4, 1/4, 1/4, 1/4],
         "angles_deg": [0, 30, -30, 0]
     },
 ]
 
-# Fraktálok generálása
 for fraktal in fraktalok:
-    plot_fractal(fraktal["title"], fraktal["ratios"], fraktal["angles_deg"], iterations)
+    analyze_and_plot(fraktal["title"], fraktal["ratios"], fraktal["angles_deg"], iterations)
