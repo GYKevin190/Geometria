@@ -1,42 +1,45 @@
-Fractal Curve Generator Repository
+# Fractal Curve Generator Repository
+
 This repository contains Python scripts for generating and visualizing various fractal curves in both 2D and 3D.
 
-Contents
-2D Fractal Generator (2d_fractals.py):
+## Contents
 
-Generates classic Koch snowflake and its variations
+### 2D Fractal Generator (`2d_fractals.py`)
+- Generates classic Koch snowflake and its variations  
+  - Koch curve  
+  - Square Koch curve  
+  - Lévy C curve  
+  - Zigzag pattern  
+  - Wave pattern  
+- Calculates:  
+  - Curve length  
+  - Fractal dimension estimation  
+- Matplotlib visualization  
 
-Includes square Koch curve, Lévy C curve, zigzag, and wave patterns
+### 3D Fractal Generator (`3d_fractal.py`)  
+- Creates 3D Koch-like curves with:  
+  - 3D vector rotations  
+  - Customizable axes of rotation  
+- Features:  
+  - Length calculation  
+  - Fractal dimension estimation  
+  - Interactive 3D visualization  
 
-Calculates curve length and estimates fractal dimension
+## Key Features  
+✔ Custom iteration levels for detail control  
+✔ Support for arbitrary segment ratios and angles  
+✔ Mathematical analysis of fractal properties  
+✔ Clean visualizations with info overlays  
 
-Visualizes with Matplotlib
+## Requirements  
+- Python 3.x  
+- NumPy  
+- Matplotlib  
 
-3D Fractal Generator (3d_fractal.py):
+## Usage  
+```python
+# For 2D fractals
+python 3d_fractal.py
 
-Creates 3D Koch-like curves with rotations in 3D space
-
-Implements vector rotation in three dimensions
-
-Provides length calculation and fractal dimension estimation
-
-3D visualization using Matplotlib's 3D toolkit
-
-Features
-Customizable iterations for detail control
-
-Support for arbitrary segment ratios and angles
-
-Mathematical analysis of fractal properties
-
-Clean visualization with informative overlays
-
-Requirements
-Python 3
-
-NumPy
-
-Matplotlib
-
-The scripts demonstrate mathematical concepts of fractal geometry while providing visually appealing representations of these complex structures.
-
+# For 3D fractals  
+python 2d_fractals.py
