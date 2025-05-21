@@ -56,12 +56,12 @@ def plot_koch_3d_with_info(points, title, iterations, scaling_ratio=None):
     ax = fig.add_subplot(111, projection='3d')
     ax.plot(xs, ys, zs, color='navy')
 
-    ax.set_title(f"{title} (iteráció: {iterations})", fontsize=14)
+    ax.set_title(f"{title} (iteration: {iterations})", fontsize=14)
     ax.set_axis_off()
 
-    info = f"Iterációk: {iterations}\nPontok: {num_points}\nHossz: {length:.5f}"
+    info = f"Iterations: {iterations}\nPoints: {num_points}\nLength: {length:.5f}"
     if theoretical_D:
-        info += f"\nFraktáldimenzió: {theoretical_D:.5f}"
+        info += f"\nFractal dimension: {theoretical_D:.5f}"
 
     ax.text2D(0.01, 0.99, info, transform=ax.transAxes,
               fontsize=10, va='top', ha='left',
@@ -75,14 +75,12 @@ ratios = [1/3, 1/3, 1/3]
 rotation_axes = [
     np.array([0, 0, 1]),   
     np.array([1, 0, 0]),   
-    np.array([0, 1, 0])    #
+    np.array([0, 1, 0])    
 ]
 angles_deg = [0, 60, -60]
-
 
 p0 = np.array([0.0, 0.0, 0.0])
 p1 = np.array([1.0, 0.0, 0.0])
 curve3d = generate_koch_3d(p0, p1, iterations, ratios, rotation_axes, angles_deg)
 
-
-plot_koch_3d_with_info(curve3d, title="Térbeli Koch-görbe", iterations=iterations, scaling_ratio=ratios[0])
+plot_koch_3d_with_info(curve3d, title="3D Koch curve", iterations=iterations, scaling_ratio=ratios[0])

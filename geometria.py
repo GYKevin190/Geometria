@@ -24,7 +24,6 @@ def generate_generalized_koch(p0, p1, iterations, ratios, angles_deg):
     return points
 
 def estimate_fractal_dimension(n_segments, scaling_ratio):
-
     if n_segments <= 1 or scaling_ratio <= 0:
         return 1.0  
     return np.log(n_segments) / np.log(1 / scaling_ratio)
@@ -39,7 +38,6 @@ def analyze_and_plot(title, ratios, angles_deg, iterations):
     x_vals, y_vals = zip(*curve)
 
     length = compute_curve_length(curve)
-
     num_points = len(curve)
 
     theoretical_D = None
@@ -50,13 +48,13 @@ def analyze_and_plot(title, ratios, angles_deg, iterations):
 
     plt.figure(figsize=(12, 4))
     plt.plot(x_vals, y_vals, color='darkblue')
-    plt.title(f'{title} (iteráció: {iterations})', fontsize=14)
+    plt.title(f'{title} (iteration: {iterations})', fontsize=14)
     plt.axis('equal')
     plt.axis('off')
 
-    info_text = f"Iterációk: {iterations}\nPontok: {num_points}\nHossz: {length:.5f}"
+    info_text = f"Iterations: {iterations}\nPoints: {num_points}\nLength: {length:.5f}"
     if theoretical_D:
-        info_text += f"\nFraktáldimenzió: {theoretical_D:.5f}"
+        info_text += f"\nFractal dimension: {theoretical_D:.5f}"
 
     plt.gca().text(
         0.01, 0.99, info_text,
@@ -71,33 +69,33 @@ def analyze_and_plot(title, ratios, angles_deg, iterations):
 
 iterations = 6
 
-fraktalok = [
+fractals = [
     {
-        "title": "Klasszikus Koch-görbe ",
+        "title": "Classical Koch curve",
         "ratios": [1/3, 1/3, 1/3, 1/3],
         "angles_deg": [0, 60, -60, 0]
     },
     {
-        "title": "Négyzetes Koch-görbe ",
+        "title": "Square Koch curve",
         "ratios": [1/4]*8,
         "angles_deg": [0, 90, -90, 0, 0, -90, 90, 0]
     },
     {
-        "title": "Levy C-görbe 🌿",
+        "title": "Levy C-curve 🌿",
         "ratios": [np.sqrt(2)/2, np.sqrt(2)/2],
         "angles_deg": [45, -45]
     },
     {
-        "title": "Recés / cikkcakk fraktál ",
+        "title": "Zigzag fractal",
         "ratios": [0.5, 0.5],
         "angles_deg": [45, -45]
     },
     {
-        "title": "Hullámvonal fraktál ",
+        "title": "Wavy line fractal",
         "ratios": [1/4, 1/4, 1/4, 1/4],
         "angles_deg": [0, 30, -30, 0]
     },
 ]
 
-for fraktal in fraktalok:
-    analyze_and_plot(fraktal["title"], fraktal["ratios"], fraktal["angles_deg"], iterations)
+for fractal in fractals:
+    analyze_and_plot(fractal["title"], fractal["ratios"], fractal["angles_deg"], iterations)
